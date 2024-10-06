@@ -112,5 +112,5 @@ export const theme = {
     layer9: 9,
     aboveAll: 10,
   },
-  firstItem: false,
+  firstItem: false, // Propriedade personalizada (se não estiver sendo usada, pode ser removida)
 } as const;

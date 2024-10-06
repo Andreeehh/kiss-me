@@ -19,9 +19,13 @@
     "postinstall": "npm run prepare"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "@styled-icons/material-outlined": "^10.34.0",
+    "bootstrap": "^5.3.3",
     "next": "12.1.6",
     "react": "18.1.0",
+    "react-bootstrap": "^2.10.5",
     "react-dom": "18.1.0",
     "react-markdown": "^8.0.3",
     "storybook-addon-next": "^1.6.6",

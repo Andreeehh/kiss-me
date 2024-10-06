@@ -7,8 +7,7 @@ export type HeadingProps = {
 export const Heading = ({ title }: HeadingProps) => {
   return (
     <Styled.Wrapper>
-      <h1>Oi</h1>
-      <p>{title}</p>
+      <h1>{title}</h1>
     </Styled.Wrapper>
   );
 };
