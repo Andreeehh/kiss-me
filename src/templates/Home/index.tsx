@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Heading } from 'components/Heading';
 import { Button } from 'components/Button';
 import { ImageButton } from 'components/ImageButton';
@@ -77,6 +77,11 @@ function Home() {
   const [showWheel, setShowWheel] = useState(false); // Novo estado para controlar a exibição da roleta
   const [mustSpin, setMustSpin] = useState(false); // Estado para controlar se a roleta deve girar
   const [prizeNumber, setPrizeNumber] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true); // Isso só será executado no lado do cliente
+  }, []);
 
   // Gerar os dados para a roleta a partir dos botões de imagem
   const wheelData: WheelData[] = imageButtonsData.map((button) => ({
@@ -168,22 +173,24 @@ function Home() {
         </>
       ) : showWheel ? (
         <>
-          <Wheel
-            mustStartSpinning={mustSpin}
-            prizeNumber={prizeNumber}
-            data={wheelData}
-            outerBorderColor="#ddd"
-            outerBorderWidth={10}
-            innerRadius={10}
-            radiusLineColor="#ccc"
-            radiusLineWidth={10}
-            onStopSpinning={() => {
-              setMustSpin(false);
-              setShowInputField(true);
-              setShowSortedPerson(true);
-              setSelectedImage(imageButtonsData[prizeNumber].label);
-            }}
-          />
+          {isClient && (
+            <Wheel
+              mustStartSpinning={mustSpin}
+              prizeNumber={prizeNumber}
+              data={wheelData}
+              outerBorderColor="#ddd"
+              outerBorderWidth={10}
+              innerRadius={10}
+              radiusLineColor="#ccc"
+              radiusLineWidth={10}
+              onStopSpinning={() => {
+                setMustSpin(false);
+                setShowInputField(true);
+                setShowSortedPerson(true);
+                setSelectedImage(imageButtonsData[prizeNumber].label);
+              }}
+            />
+          )}
           <Button label="Girar" variant="success" onClick={handleSpinClick} />{' '}
           {/* Botão para iniciar o giro */}
         </>
