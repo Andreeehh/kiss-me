@@ -6,6 +6,31 @@ import InputTextField from 'components/InputTextField';
 import { db } from '../../firebase'; // Certifique-se de que o caminho está correto
 import { collection, addDoc } from 'firebase/firestore';
 import * as Styled from './styles';
+import { Wheel } from 'react-custom-roulette';
+
+interface WheelData {
+  option?: string;
+  image?: ImageProps;
+  style?: StyleType; // Optional
+  optionSize?: number; // Optional
+}
+
+interface StyleType {
+  backgroundColor?: string; // Optional
+  textColor?: string; // Optional
+  fontFamily?: string; // Optional
+  fontSize?: number; // Optional
+  fontWeight?: number | string; // Optional
+  fontStyle?: string; // Optional
+}
+
+interface ImageProps {
+  uri: string;
+  offsetX?: number; // Optional
+  offsetY?: number; // Optional
+  sizeMultiplier?: number; // Optional
+  landscape?: boolean; // Optional
+}
 
 const imageButtonsData = [
   {
@@ -46,8 +71,22 @@ const formatDateTime = (date) => {
 function Home() {
   const [showImageButtons, setShowImageButtons] = useState(false);
   const [showInputField, setShowInputField] = useState(false);
+  const [showSortedPerson, setShowSortedPerson] = useState(false);
   const [submittedValue, setSubmittedValue] = useState('');
   const [selectedImage, setSelectedImage] = useState('');
+  const [showWheel, setShowWheel] = useState(false); // Novo estado para controlar a exibição da roleta
+  const [mustSpin, setMustSpin] = useState(false); // Estado para controlar se a roleta deve girar
+  const [prizeNumber, setPrizeNumber] = useState(0);
+
+  // Gerar os dados para a roleta a partir dos botões de imagem
+  const wheelData: WheelData[] = imageButtonsData.map((button) => ({
+    option: button.label,
+    image: {
+      uri: button.src,
+      offsetY: 75,
+      sizeMultiplier: 1.3,
+    },
+  }));
 
   const handleButtonClick = () => {
     setShowImageButtons(true);
@@ -76,6 +115,11 @@ function Home() {
     }
   };
 
+  const handleSpinClick = () => {
+    setPrizeNumber(Math.floor(Math.random() * imageButtonsData.length)); // Escolhe um número aleatório
+    setMustSpin(true); // Inicia o giro
+  };
+
   return (
     <Styled.Wrapper>
       {submittedValue ? (
@@ -85,6 +129,11 @@ function Home() {
         </>
       ) : showInputField ? (
         <>
+          {showSortedPerson ? (
+            <h1>Beijo aleatório com {selectedImage}</h1>
+          ) : (
+            <></>
+          )}
           <Heading title="Me passa seu insta?" />
           <InputTextField
             placeholder="Digite seu insta"
@@ -108,6 +157,35 @@ function Home() {
               />
             ))}
           </Styled.Grid>
+          <Button
+            label="Beijo Aleatório"
+            variant="primary"
+            onClick={() => {
+              setShowWheel(true);
+              setShowImageButtons(false);
+            }} // Exibe a roleta ao clicar no botão
+          />
+        </>
+      ) : showWheel ? (
+        <>
+          <Wheel
+            mustStartSpinning={mustSpin}
+            prizeNumber={prizeNumber}
+            data={wheelData}
+            outerBorderColor="#ddd"
+            outerBorderWidth={10}
+            innerRadius={10}
+            radiusLineColor="#ccc"
+            radiusLineWidth={10}
+            onStopSpinning={() => {
+              setMustSpin(false);
+              setShowInputField(true);
+              setShowSortedPerson(true);
+              setSelectedImage(imageButtonsData[prizeNumber].label);
+            }}
+          />
+          <Button label="Girar" variant="success" onClick={handleSpinClick} />{' '}
+          {/* Botão para iniciar o giro */}
         </>
       ) : (
         <>
