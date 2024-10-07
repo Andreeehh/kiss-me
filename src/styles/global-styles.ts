@@ -30,7 +30,7 @@ export const GlobalStyles = createGlobalStyle`
 
   p {
     margin: ${({ theme }) => theme.spacings.medium} 0;
-    color: ${({ theme }) => theme.colors.gray8};
+    color: ${({ theme }) => theme.colors.deepBlack};
   }
 
   ul, ol {
