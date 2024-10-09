@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import { Heading } from 'components/Heading';
 import { Button } from 'components/Button';
@@ -6,7 +7,14 @@ import InputTextField from 'components/InputTextField';
 import { db } from '../../firebase'; // Certifique-se de que o caminho está correto
 import { collection, addDoc } from 'firebase/firestore';
 import * as Styled from './styles';
-import { Wheel } from 'react-custom-roulette';
+
+// Importa a roleta de forma dinâmica, desativando o SSR
+const DynamicWheel = dynamic(
+  () => import('react-custom-roulette').then((mod) => mod.Wheel),
+  {
+    ssr: false,
+  },
+);
 
 interface WheelData {
   option?: string;
@@ -77,11 +85,6 @@ function Home() {
   const [showWheel, setShowWheel] = useState(false); // Novo estado para controlar a exibição da roleta
   const [mustSpin, setMustSpin] = useState(false); // Estado para controlar se a roleta deve girar
   const [prizeNumber, setPrizeNumber] = useState(0);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true); // Isso só será executado no lado do cliente
-  }, []);
 
   // Gerar os dados para a roleta a partir dos botões de imagem
   const wheelData: WheelData[] = imageButtonsData.map((button) => ({
@@ -173,24 +176,22 @@ function Home() {
         </>
       ) : showWheel ? (
         <>
-          {isClient && (
-            <Wheel
-              mustStartSpinning={mustSpin}
-              prizeNumber={prizeNumber}
-              data={wheelData}
-              outerBorderColor="#ddd"
-              outerBorderWidth={10}
-              innerRadius={10}
-              radiusLineColor="#ccc"
-              radiusLineWidth={10}
-              onStopSpinning={() => {
-                setMustSpin(false);
-                setShowInputField(true);
-                setShowSortedPerson(true);
-                setSelectedImage(imageButtonsData[prizeNumber].label);
-              }}
-            />
-          )}
+          <DynamicWheel
+            mustStartSpinning={mustSpin}
+            prizeNumber={prizeNumber}
+            data={wheelData}
+            outerBorderColor="#ddd"
+            outerBorderWidth={10}
+            innerRadius={10}
+            radiusLineColor="#ccc"
+            radiusLineWidth={10}
+            onStopSpinning={() => {
+              setMustSpin(false);
+              setShowInputField(true);
+              setShowSortedPerson(true);
+              setSelectedImage(imageButtonsData[prizeNumber].label);
+            }}
+          />
           <Button label="Girar" variant="success" onClick={handleSpinClick} />{' '}
           {/* Botão para iniciar o giro */}
         </>
