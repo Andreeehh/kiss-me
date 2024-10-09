@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Heading } from 'components/Heading';
 import { Button } from 'components/Button';
 import { ImageButton } from 'components/ImageButton';
@@ -130,6 +130,22 @@ function Home() {
 
   return (
     <Styled.Wrapper>
+      <Styled.TopLeftImage
+        src="https://res.cloudinary.com/dxcyn87v8/image/upload/v1728479509/pinaple_s4osv3.png"
+        alt="Pinaple"
+      />
+      <Styled.TopRightImage
+        src="https://res.cloudinary.com/dxcyn87v8/image/upload/v1728479509/pinaple_s4osv3.png"
+        alt="Pinaple"
+      />
+      <Styled.BottomLeftImage
+        src="https://res.cloudinary.com/dxcyn87v8/image/upload/v1728479509/pinaple_s4osv3.png"
+        alt="Pinaple"
+      />
+      <Styled.BottomRightImage
+        src="https://res.cloudinary.com/dxcyn87v8/image/upload/v1728479509/pinaple_s4osv3.png"
+        alt="Pinaple"
+      />
       {submittedValue ? (
         <>
           <Heading title="Enviado!" />
@@ -167,7 +183,7 @@ function Home() {
           </Styled.Grid>
           <Button
             label="Beijo Aleatório"
-            variant="primary"
+            variant="secondary"
             onClick={() => {
               setShowWheel(true);
               setShowImageButtons(false);
@@ -192,7 +208,7 @@ function Home() {
               setSelectedImage(imageButtonsData[prizeNumber].label);
             }}
           />
-          <Button label="Girar" variant="success" onClick={handleSpinClick} />{' '}
+          <Button label="Girar" variant="secondary" onClick={handleSpinClick} />{' '}
           {/* Botão para iniciar o giro */}
         </>
       ) : (

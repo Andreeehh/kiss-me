@@ -25,7 +25,7 @@ export const GlobalStyles = createGlobalStyle`
   h1, h2, h3, h4, h5, h6 {
     font-family: ${({ theme }) => theme.font.family.secondary};
     margin: ${({ theme }) => theme.spacings.large} 0;
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.secondary};
   }
 
   p {
@@ -59,6 +59,7 @@ export const GlobalStyles = createGlobalStyle`
     cursor: pointer;
     transition: ${({ theme }) => theme.transitions.fast};
 
+
     /* Comportamento no estado de hover */
     &:hover {
       opacity: 0.8;
@@ -67,31 +68,26 @@ export const GlobalStyles = createGlobalStyle`
 
     &.btn-primary {
       background-color: ${({ theme }) => theme.colors.primary};
-      color: ${({ theme }) => theme.colors.deepWhite};
       border-color: ${({ theme }) => theme.colors.primary};
     }
 
     &.btn-secondary {
       background-color: ${({ theme }) => theme.colors.secondary};
-      color: ${({ theme }) => theme.colors.deepWhite};
       border-color: ${({ theme }) => theme.colors.secondary};
     }
 
     &.btn-success {
       background-color: ${({ theme }) => theme.colors.success};
-      color: ${({ theme }) => theme.colors.deepWhite};
       border-color: ${({ theme }) => theme.colors.success};
     }
 
     &.btn-info {
       background-color: ${({ theme }) => theme.colors.info};
-      color: ${({ theme }) => theme.colors.deepWhite};
       border-color: ${({ theme }) => theme.colors.info};
     }
 
     &.btn-warning {
       background-color: ${({ theme }) => theme.colors.warning};
-      color: ${({ theme }) => theme.colors.deepWhite};
       border-color: ${({ theme }) => theme.colors.warning};
     }
 

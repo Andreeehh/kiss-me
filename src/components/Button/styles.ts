@@ -6,6 +6,8 @@ export const Wrapper = styled.button`
   margin: 10px 0;
   padding: 10px 20px;
   font-size: 16px;
+  color: ${({ theme }) => theme.colors.gray11};
+  z-index: 1;
 
   &.btn-block {
     display: block;

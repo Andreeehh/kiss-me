@@ -6,6 +6,7 @@ import { InputGroup as BootstrapInputGroup } from 'react-bootstrap'; // Renomean
 export const StyledInputGroup = styled(BootstrapInputGroup)`
   width: 100%;
   display: flex;
+  z-index: 1;
 `;
 
 export const InputField = styled.input`

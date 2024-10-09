@@ -10,7 +10,7 @@ export const Wrapper = styled.button`
   cursor: pointer;
   width: 100%;
   max-width: 250px; /* Limite de largura do botão */
-
+  z-index: 1;
   img {
     width: 100%;
     height: auto; /* Manter a proporção da imagem */
